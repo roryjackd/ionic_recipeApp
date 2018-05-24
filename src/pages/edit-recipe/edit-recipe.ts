@@ -12,7 +12,8 @@ export class EditRecipePage implements OnInit {
   recipeForm: FormGroup;
 
   constructor (private navParams: NavParams,
-               private actionSheetController: ActionSheetController) {}
+               private actionSheetController: ActionSheetController,
+               private alertCtrl: AlertControlled) {}
 
   ngOnInit() {
     this.mode = this.navParams.get('mode');
@@ -45,6 +46,32 @@ export class EditRecipePage implements OnInit {
           role: 'cancel'
         }
        ]
+    });
+  }
+
+  private createNewIngredientAlert() {
+    const newIngredientALert = this.alertCtrl.create({
+      title: 'Add Ingredient',
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Name'
+        }
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+            text: 'Add',
+            handler: data => {
+              if (data.name.trim() == '' || data.name == null) {
+                
+              }
+            }
+          }
+        ]  
+      ]
     });
   }
 
