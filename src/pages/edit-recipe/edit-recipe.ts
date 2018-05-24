@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { NavParams, ActionSheetController } from "ionic-angular";
+import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
+import { NavParams, ActionSheetController, AlertController } from "ionic-angular";
 
 @Component({
   selector: 'page-edit-recipe',
@@ -13,7 +13,7 @@ export class EditRecipePage implements OnInit {
 
   constructor (private navParams: NavParams,
                private actionSheetController: ActionSheetController,
-               private alertCtrl: AlertControlled) {}
+               private alertCtrl: AlertController) {}
 
   ngOnInit() {
     this.mode = this.navParams.get('mode');
@@ -31,7 +31,7 @@ export class EditRecipePage implements OnInit {
         {
           text: 'Add Ingredient',
           handler: () => {
-
+            this.createNewIngredientAlert().present();
           }
         },
         {
@@ -47,16 +47,18 @@ export class EditRecipePage implements OnInit {
         }
        ]
     });
+    actionSheet.present();
   }
 
   private createNewIngredientAlert() {
-    const newIngredientALert = this.alertCtrl.create({
+    return this.alertCtrl.create({
       title: 'Add Ingredient',
       inputs: [
         {
           name: 'name',
           placeholder: 'Name'
         }
+      ],  
       buttons: [
         {
           text: 'Cancel',
@@ -66,12 +68,13 @@ export class EditRecipePage implements OnInit {
             text: 'Add',
             handler: data => {
               if (data.name.trim() == '' || data.name == null) {
-                
+                return;
               }
+              (<FormArray>this.recipeForm.get('ingredients'))
+              .push(new FormControl(data.name, Validators.required));
             }
           }
         ]  
-      ]
     });
   }
 
@@ -79,7 +82,8 @@ export class EditRecipePage implements OnInit {
     this.recipeForm = new FormGroup({
       'title': new FormControl(null, Validators.required),
       'description': new FormControl(null, Validators.required),
-      'difficulty': new FormControl('Medium', Validators.required)
+      'difficulty': new FormControl('Medium', Validators.required),
+      'ingredients': new FormArray([])
     });
   }
 }
