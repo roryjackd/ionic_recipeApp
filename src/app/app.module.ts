@@ -11,7 +11,7 @@ import { RecipesPage } from '../pages/recipes/recipes';
 import { ShoppingListPage } from '../pages/shopping-list/shopping-list';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ShoppingListService } from "../services/shopping-list";
-import { RecipeService } from "../services/recipes";
+import { RecipesService } from "../services/recipes";
 
 
 @NgModule({
@@ -41,7 +41,7 @@ import { RecipeService } from "../services/recipes";
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ShoppingListService,
-    RecipeService
+    RecipesService
   ]
 })
 export class AppModule {}

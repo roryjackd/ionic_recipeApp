@@ -1,7 +1,7 @@
 import { Recipe } from "../models/recipe";
 import { Ingredient } from "../models/ingredient";
 
-export class RecipeService {
+export class RecipesService {
   private recipes: Recipe[] = [];
 
   addRecipe(title: string, 

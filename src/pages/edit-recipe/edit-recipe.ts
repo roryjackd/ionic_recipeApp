@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
 import { NavParams, ActionSheetController, AlertController, ToastController, NavController } from "ionic-angular";
-import { RecipeService } from "../../services/recipes";
+import { RecipesService } from "../../services/recipes";
 
 @Component({
   selector: 'page-edit-recipe',
@@ -16,7 +16,7 @@ export class EditRecipePage implements OnInit {
                private actionSheetController: ActionSheetController,
                private alertCtrl: AlertController,
                private toastCtrl: ToastController,
-               private recipesService: RecipeService,
+               private recipesService: RecipesService,
                private navCtrl: NavController) {}
 
   ngOnInit() {
